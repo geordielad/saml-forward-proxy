@@ -1,5 +1,4 @@
 # SAML Forward Proxy Example for Tableau
-=======================
 
 Description
 -----------
@@ -9,11 +8,18 @@ Tableau supports the HTTP-Post binding for SAML Requests and will always sign th
 
 This proxy runs as a web server on a port defined in config.js and will work with HTTP or HTTPS. It is effectively a one way proxy hence the term SAML Forward Proxy. This example does not proxy the SAML Response. The Response from the IdP is sent directly to the Tableau Server (via the user agent of course)
 
+Web Sequence:
+
+![alt text](https://raw.githubusercontent.com/geordielad/saml-forward-proxy/master/assets/SAML Relay Service as Proxy SP.png)
+
 Usage
 -----
 
 ```bash
-$ npm install saml-forward-proxy
+$ git clone https://github.com/geordielad/saml-forward-proxy.git
+$ cd saml-forward-proxy
+$ npm install
+$ # Make changes to config/config.js as needed. Add SSL key/cert if needed. Add SAML private key if needed.
 $ npm start
 ```
 
@@ -21,9 +27,6 @@ Examples
 --------
 
 ## Run the proxy on localhost with http on port 3000. Use HTTP-Redirect to the original IdP and do not sign the request.
-
-- bla
-- bla
 
 1. Ensure that your IpP is working as expected.
 2. Stop the Tableau Server.

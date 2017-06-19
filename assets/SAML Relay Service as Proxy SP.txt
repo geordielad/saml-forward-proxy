@@ -1,0 +1,15 @@
+-- Use https://bramp.github.io/js-sequence-diagrams/
+
+Title: SAML Relay Service as Proxy SP
+Browser -> Tableau: Request Resource
+Tableau -> Browser: AuthnRequest + RelayState
+Note right of Browser:Signed and HTTP-POST
+Browser -> SAML Relay: AuthnRequest + RelayState
+Note over SAML Relay: SAML Relay only\nneeds RelayState.\n Does not need\nto be full SAML Idp\nunless we need Entity ID
+Browser -> SAML IdP: AuthnRequest (NEW) + RelayState
+Note right of Browser: HTTP-Redirect\nOptional Signature
+SAML IdP -> Browser: AuthnResponse + RelayState
+Note left of SAML IdP:Response does not need\nto return via SAML Relay
+Browser -> Tableau: AuthnResponse + RelayState
+Tableau -> Browser: Session Established\nRedirect using RelayState
+Note right of Browser :Works with Desktop and Mobile
