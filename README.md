@@ -26,7 +26,7 @@ $ npm start
 Examples
 --------
 
-## Run the proxy on localhost with http on port 3000. Use HTTP-Redirect to the original IdP and do not sign the request.
+### Run the proxy on localhost with http on port 3000. Use HTTP-Redirect to the original IdP and do not sign the request.
 
 1. Ensure that your IpP is working as expected.
 2. Stop the Tableau Server.
