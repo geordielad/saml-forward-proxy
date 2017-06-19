@@ -1,0 +1,38 @@
+{
+  "name": "saml-forward-proxy",
+  "version": "0.0.2",
+  "description": "Proxy SAML 2 Requests to another IdP",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geordielad/saml-forward-proxy.git"
+  },
+  "keywords": [
+    "Tableau",
+    "SAML"
+  ],
+  "author": "Robin Cottiss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/geordielad/saml-forward-proxy/issues"
+  },
+  "homepage": "https://github.com/geordielad/saml-forward-proxy#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "errorhandler": "^1.5.0",
+    "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "jade": "^1.11.0",
+    "morgan": "^1.8.2",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-saml": "^0.15.0",
+    "saml-encoder-decoder-js": "^1.0.1",
+    "xml2js": "^0.4.17",
+    "xml2js-xpath": "^0.8.0"
+  }
+}
