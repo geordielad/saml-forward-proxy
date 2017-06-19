@@ -10,7 +10,7 @@ This proxy runs as a web server on a port defined in config.js and will work wit
 
 Web Sequence:
 
-![alt text](https://raw.githubusercontent.com/geordielad/saml-forward-proxy/master/assets/SAML Relay Service as Proxy SP.png)
+![alt text](https://raw.githubusercontent.com/geordielad/saml-forward-proxy/master/assets/SAML%20Relay%20Service%20as%20Proxy%20SP.png)
 
 Usage
 -----
