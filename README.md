@@ -53,6 +53,7 @@ module.exports = {
     }
   }
 };
+```
 
 5. Start the proxy if necessary. npm start.
 6. Restart Tableau Server and test the proxy by calling your Tableau Server in the Browser. Note that view URLs and any public pages (for example: sites and projects) will work as the proxy will forward the RelayState.
