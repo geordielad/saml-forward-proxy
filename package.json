@@ -14,7 +14,7 @@
     "Tableau",
     "SAML"
   ],
-  "author": "Robin Cottiss",
+  "author": "Robin Cottiss <rcottiss@tableau.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/geordielad/saml-forward-proxy/issues"
@@ -34,5 +34,15 @@
     "saml-encoder-decoder-js": "^1.0.1",
     "xml2js": "^0.4.17",
     "xml2js-xpath": "^0.8.0"
-  }
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "app.js",
+    "app/",
+    "config/"
+  ]
 }
