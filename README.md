@@ -27,7 +27,7 @@ Examples
 3. Get a copy of the IdPs metadata. Note the HTTP-POST endpoint of the SingleSignOnService and change the Location attribute to http://localhost:3000
 4. In config/config.js: Comment out the privateCert attribute. This will ensure that the Request is not signed. The example code will update the callbackUrl and issuer attributes from the Request sent by Tableau Server.
 
-'''javascript
+```javascript
 const fs = require('fs');
 
 module.exports = {
