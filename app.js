@@ -16,12 +16,6 @@ const samlEncodeDecode = require('saml-encoder-decoder-js');
 const xml2js = require("xml2js");
 const xpath = require("xml2js-xpath");
 
-var sslOptions = {
-//  key: fs.readFileSync('.ssl/tableaurocks.key', 'utf8'),
-//  cert: fs.readFileSync('.ssl/tableau-rocks-2016.crt', 'utf8')
-};
-
-
 var env = process.env.NODE_ENV || 'development';
 const config = require('./config/config')[env];
 
@@ -30,6 +24,8 @@ console.log('Using configuration', config);
 require('./config/passport')(passport, config);
 
 var app = express();
+
+var sslOptions = config.app.sslOptions;
 
 app.set('port', config.app.port);
 app.set('views', __dirname + '/app/views');
@@ -50,13 +46,16 @@ app.use(passport.session());
 
 require('./config/routes')(app, config, passport, util, samlEncodeDecode, xml2js, xpath);
 
-//https.createServer(sslOptions, app).listen(app.get('port'), function () {
-//  console.log('SAML Forward Proxy listening on port ' + app.get('port'));
-//});
-
-http.createServer(app).listen(app.get('port'), function () {
-  console.log('SAML Forward Proxy listening on port ' + app.get('port'));
-});
+if (config.app.protocol == 'https') {
+  https.createServer(sslOptions, app).listen(app.get('port'), function () {
+    console.log('SAML Forward Proxy listening on port ' + app.get('port') + ' using https');
+  });
+}
+else {
+  http.createServer(app).listen(app.get('port'), function () {
+    console.log('SAML Forward Proxy listening on port ' + app.get('port') + ' assuming http');
+  });
+}
 
 
 //app.listen(app.get('port'), function () {

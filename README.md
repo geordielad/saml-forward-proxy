@@ -22,10 +22,16 @@ Examples
 
 ## Run the proxy on localhost with http on port 3000. Use HTTP-Redirect to the original IdP and do not sign the request.
 
+- bla
+- bla
+
 1. Ensure that your IpP is working as expected.
 2. Stop the Tableau Server.
 3. Get a copy of the IdPs metadata. Note the HTTP-POST endpoint of the SingleSignOnService and change the Location attribute to http://localhost:3000
-4. In config/config.js: Comment out the privateCert attribute. This will ensure that the Request is not signed. The example code will update the callbackUrl and issuer attributes from the Request sent by Tableau Server.
+4. In config/config.js:
+    - Update the entryPoint attribute to the original HTTP-POST SingleSignOnService Location.
+    - Comment out the privateCert attribute. This will ensure that the Request is not signed.
+    - The example code will update the callbackUrl and issuer attributes from the Request sent by Tableau Server.
 
 ```javascript
 const fs = require('fs');
@@ -40,8 +46,8 @@ module.exports = {
       strategy: 'saml',
       saml: {
         path: '/',
-        callbackUrl: 'https://example.com/saml_callback', // DYNAMIC FROM ORIGINAL REQUEST - See routes.js
-        entryPoint: process.env.SAML_ENTRY_POINT || 'https://dev-221604.oktapreview.com/app/tableausoftwaredev221604_tableau_1/exk61mg6poMGQ8Fnk0h7/sso/saml',
+        callbackUrl: 'https://yourSP.com/saml_callback', // DYNAMIC FROM ORIGINAL REQUEST - See routes.js
+        entryPoint: process.env.SAML_ENTRY_POINT || 'https://youridp.com/entryPoint',
 	      authnRequestBinding: process.env.SAML_AUTHN_REQUEST_BINDING || 'HTTP-Redirect', // Change to HTTP-POST if required
         issuer: 'https://saml_sp_entityid', // DYNAMIC FROM ORININAL REQUEST - See routes.js
         //skipRequestCompression: true, // Optional depending on IdP
