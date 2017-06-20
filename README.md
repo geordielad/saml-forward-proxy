@@ -30,7 +30,7 @@ Examples
 
 1. Ensure that your IpP is working as expected.
 2. Stop the Tableau Server.
-3. Get a copy of the IdPs metadata. Note the HTTP-POST endpoint of the SingleSignOnService and change the Location attribute to http://localhost:3000
+3. Get a copy of the IdPs metadata. Note the HTTP-POST endpoint of the SingleSignOnService and change the Location attribute to http://localhost:3000/saml_proxy
 4. In config/config.js:
     - Update the entryPoint attribute to the original HTTP-POST SingleSignOnService Location.
     - Comment out the privateCert attribute. This will ensure that the Request is not signed.
