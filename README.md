@@ -72,6 +72,54 @@ module.exports = {
 6. Restart Tableau Server and test the proxy by calling your Tableau Server in the Browser. Note that view URLs and any public pages (for example: sites and projects) will work as the proxy will forward the RelayState.
 7. You should test the SAML Forward proxy with Tableau Desktop and the Tableau Mobile App they should work as expected.
 
+### A more realistic example. Run the proxy on the same server as Tableau (Assume Tableau running on port 443 - https://tableau.example.com) Use https on port 8443 for the proxy. Use HTTP-Redirect to the original IdP and sign the request.
+
+1. Ensure that your IpP is working as expected.
+2. Stop the Tableau Server.
+3. Get a copy of the IdPs metadata. Note the HTTP-POST endpoint of the SingleSignOnService and change the Location attribute to https://tableau.example.com:8433/saml_proxy. Note that port 8443 may need to be opened on the firewall.
+4. In config/config.js:
+    - Configure the protocol, ssOptions and port attributes to your requirements.
+    - Update the entryPoint attribute to the original HTTP-POST SingleSignOnService Location.
+    - Comment out the privateCert attribute. This will ensure that the Request is not signed.
+    - The example code will update the callbackUrl and issuer attributes from the Request sent by Tableau Server.
+
+```javascript
+const fs = require('fs');
+
+module.exports = {
+  development: {
+    app: {
+      name: 'Passport SAML strategy example',
+      protocol: process.env.PROTOCOL || 'https',  // http or https
+      sslOptions: {
+        key: fs.readFileSync('.ssl/yoursslkey.key', 'utf8'),
+        cert: fs.readFileSync('.ssl/yoursslcert.crt', 'utf8')
+      },      
+      port: process.env.PORT || 8443  // any available port
+    },
+    passport: {
+      strategy: 'saml',
+      saml: {
+        path: '/',
+        callbackUrl: 'https://yourSP.com/saml_callback', // DYNAMIC FROM ORIGINAL REQUEST - See routes.js
+        entryPoint: process.env.SAML_ENTRY_POINT || 'https://youridp.com/entryPoint',
+	      authnRequestBinding: process.env.SAML_AUTHN_REQUEST_BINDING || 'HTTP-Redirect', // Change to HTTP-POST if required
+        issuer: 'https://saml_sp_entityid', // DYNAMIC FROM ORININAL REQUEST - See routes.js
+        //skipRequestCompression: true, // Optional depending on IdP
+        //acceptedClockSkewMs: -1, // Optional depending on IdP
+        //disableRequestedAuthnContext: true, //Optional depending on IdP
+        privateCert: process.env.SAML_PRIVATE_CERT || fs.readFileSync('./tableau_saml_sp.key', 'utf-8'), //Uncomment if Request Signing is required.
+        //cert: process.env.SAML_CERT || fs.readFileSync('./okta.cert', 'utf-8') // Not needed because we are not processing AuthnResponse
+      }
+    }
+  }
+};
+```
+
+5. Start the proxy if necessary. npm start.
+6. Restart Tableau Server and test the proxy by calling your Tableau Server in the Browser. Note that view URLs and any public pages (for example: sites and projects) will work as the proxy will forward the RelayState.
+7. You should test the SAML Forward proxy with Tableau Desktop and the Tableau Mobile App they should work as expected.
+
 This example code has been tested with Okta and Azure AD.
 
 ## Authors
