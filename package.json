@@ -1,6 +1,6 @@
 {
   "name": "saml-forward-proxy",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "Proxy SAML 2 Requests to another IdP",
   "scripts": {
     "start": "nodemon app.js",
