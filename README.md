@@ -1,9 +1,9 @@
 # SAML Forward Proxy Example for Tableau
 
-Description
------------
+## Description
 
-An example (not intended for production use) to demonstrate the use of the [Passport-SAML](https://github.com/bergie/passport-saml) Authentication provider as a SAML Proxy for a Tableau Server configured as a SAML Service Provider (SP).
+An example to demonstrate the use of the [Passport-SAML](https://github.com/bergie/passport-saml) Authentication provider as a SAML Proxy for a Tableau Server configured as a SAML Service Provider (SP).
+
 Tableau supports the HTTP-Post binding for SAML Requests and will always sign the requests. Some IdPs cannot be configured to support HTTP-POST but instead only support HTTP-Redirect. Also the IdP may not require a signed request. Usually signing the request in Tableau does not alter the ability of the IdP to process the request but sometimes it is beneficial to reduce the size of the request so that intermediate servers can store the request in a cookie.
 
 This proxy runs as a web server on a port defined in config.js and will work with HTTP or HTTPS. It is effectively a one way proxy hence the term SAML Forward Proxy. This example does not proxy the SAML Response. The Response from the IdP is sent directly to the Tableau Server (via the user agent of course)
@@ -12,8 +12,7 @@ Web Sequence:
 
 ![alt text](https://raw.githubusercontent.com/geordielad/saml-forward-proxy/master/assets/SAML%20Relay%20Service%20as%20Proxy%20SP.png)
 
-Usage
------
+## Usage
 
 ```bash
 $ git clone https://github.com/geordielad/saml-forward-proxy.git
@@ -23,8 +22,7 @@ $ # Make changes to config/config.js as needed. Add SSL key/cert if needed. Add 
 $ npm start
 ```
 
-Examples
---------
+## Examples
 
 ### Run the proxy on localhost with http on port 3000. Use HTTP-Redirect to the original IdP and do not sign the request.
 
@@ -76,21 +74,22 @@ module.exports = {
 
 This example code has been tested with Okta and Azure AD.
 
-Authors
--------
+## Authors
 
 | [!["Robin Cottiss"](http://gravatar.com/avatar/b7ccc70dfdbfc700d88c1ca246fa4946.png?s=60)](http://tableau.com "Robin Cottiss <rcottiss@tableau.com>") |
 |---|
 | [@geordielad](https://twitter.com/geordielad) |
 
+## Is SAML Forward Proxy supported?
 
-License
--------
+SAML Forward Proxy is made available AS-IS with no support and no warranty whatsoever. The software is strictly “use at your own risk.”
+
+The good news: You are free to modify it in any way to meet your needs, or use it as the basis for your own implementation.
+
+## License
 
 Licensed under the MIT license
 
-
-Note
-----
+## Note
 
 Based on [PassportJS SAML Example ](https://github.com/gbraad/passport-saml-example) by [Gerard Braad](https://github.com/gbraad)
